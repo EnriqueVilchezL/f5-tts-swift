@@ -306,7 +306,7 @@ public extension F5TTS {
     }
 
     static func fromPretrained(modelDirectoryURL: URL) throws -> F5TTS {
-        let modelURL = modelDirectoryURL.appendingPathComponent("model.safetensors")
+        let modelURL = modelDirectoryURL.appendingPathComponent("model_v1_4b.safetensors")
         let modelWeights = try loadArrays(url: modelURL)
 
         // mel spec
