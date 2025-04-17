@@ -311,7 +311,7 @@ public extension F5TTS {
         print("Loaded modelWeights")
         // mel spec
 
-        guard let filterbankURL = Bundle.module.url(forResource: "mel_filters", withExtension: "npy", subdirectory: "Resources") else {
+        guard let filterbankURL = Bundle.module.url(forResource: "mel_filters", withExtension: "npy") else {
             throw F5TTSError.unableToLoadModel
         }
         let filterbank = try MLX.loadArray(url: filterbankURL)
