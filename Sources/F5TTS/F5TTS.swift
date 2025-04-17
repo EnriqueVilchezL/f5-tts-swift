@@ -349,7 +349,7 @@ public extension F5TTS {
                 melSpec: MelSpec(filterbank: filterbank),
                 vocabCharMap: vocab
             )
-            try predictor.update(parameters: ModuleParameters.unflattened(durationModelWeights), verify: [.modelOnly])
+            try predictor.update(parameters: ModuleParameters.unflattened(durationModelWeights))
 
             durationPredictor = predictor
             print("Loaded duration Predictor")
