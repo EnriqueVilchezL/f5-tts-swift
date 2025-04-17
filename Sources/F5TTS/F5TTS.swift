@@ -308,24 +308,25 @@ public extension F5TTS {
     static func fromPretrained(modelDirectoryURL: URL) throws -> F5TTS {
         let modelURL = modelDirectoryURL.appendingPathComponent("model_4b.safetensors")
         let modelWeights = try loadArrays(url: modelURL)
-
+        print("Loaded modelWeights")
         // mel spec
 
         guard let filterbankURL = Bundle.module.url(forResource: "mel_filters", withExtension: "npy", subdirectory: "Resources") else {
             throw F5TTSError.unableToLoadModel
         }
         let filterbank = try MLX.loadArray(url: filterbankURL)
-
+        print("Loaded filterbank")
         // vocab
 
         let vocabURL = modelDirectoryURL.appendingPathComponent("vocab.txt")
         guard let vocabString = try String(data: Data(contentsOf: vocabURL), encoding: .utf8) else {
             throw F5TTSError.unableToLoadModel
         }
+        
 
         let vocabEntries = vocabString.split(separator: "\n").map { String($0) }
         let vocab = Dictionary(uniqueKeysWithValues: zip(vocabEntries, vocabEntries.indices))
-
+        print("Loaded vocab")
         // duration model
 
         var durationPredictor: DurationPredictor?
@@ -351,6 +352,7 @@ public extension F5TTS {
             try predictor.update(parameters: ModuleParameters.unflattened(durationModelWeights), verify: [.all])
 
             durationPredictor = predictor
+            print("Loaded duration Predictor")
         } catch {
             print("Warning: no duration predictor model found: \(error)")
         }
@@ -373,7 +375,7 @@ public extension F5TTS {
             durationPredictor: durationPredictor
         )
         try f5tts.update(parameters: ModuleParameters.unflattened(modelWeights), verify: [.all])
-
+        print("Loaded f5tts")
         return f5tts
     }
 }
