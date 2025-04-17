@@ -374,7 +374,7 @@ public extension F5TTS {
             vocabCharMap: vocab,
             durationPredictor: durationPredictor
         )
-        try f5tts.update(parameters: ModuleParameters.unflattened(modelWeights), verify: [.all])
+        try f5tts.update(parameters: ModuleParameters.unflattened(modelWeights))
         print("Loaded f5tts")
         return f5tts
     }
